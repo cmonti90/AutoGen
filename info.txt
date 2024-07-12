@@ -1,6 +1,4 @@
 
-Jinja is a powerful templating engine used in various contexts, including generating files. When working with Jinja templates, you can use various types of logic to dynamically generate content. Here are some key types of logic you can use in Jinja templates:
-
 Control Structures:
 
 Conditionals: Use if, elif, and else statements to include or exclude content based on conditions.

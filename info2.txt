@@ -1,0 +1,119 @@
+
+1. Template Rendering:
+render(): Render a template with a given context.
+
+python
+Copy code
+from jinja2 import Template
+
+template = Template("Hello {{ name }}!")
+rendered = template.render(name="Alice")
+print(rendered)  # Output: Hello Alice!
+render_template(): In web frameworks like Flask, this function is used to render templates. It’s similar to render() but is used in the context of a web application.
+
+python
+Copy code
+from flask import Flask, render_template
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return render_template('index.html', name='Alice')
+2. Environment Configuration:
+FileSystemLoader: Load templates from the file system.
+
+python
+Copy code
+from jinja2 import Environment, FileSystemLoader
+
+env = Environment(loader=FileSystemLoader('templates'))
+template = env.get_template('template.html')
+DictLoader: Load templates from a dictionary.
+
+python
+Copy code
+from jinja2 import Environment, DictLoader
+
+env = Environment(loader=DictLoader({
+    'template.html': 'Hello {{ name }}!'
+}))
+template = env.get_template('template.html')
+PackageLoader: Load templates from a package (useful for larger projects).
+
+python
+Copy code
+from jinja2 import Environment, PackageLoader
+
+env = Environment(loader=PackageLoader('my_package', 'templates'))
+template = env.get_template('template.html')
+3. Template Inheritance and Inclusion:
+include(): Include another template inside the current template.
+
+jinja
+Copy code
+{% include 'header.html' %}
+extends(): Extend a base template.
+
+jinja
+Copy code
+{% extends 'base.html' %}
+{% block content %}{% endblock %}
+4. Custom Filters and Tests:
+Add Custom Filters: Define your own filters to perform specific transformations.
+
+python
+Copy code
+def reverse_string(value):
+    return value[::-1]
+
+env = Environment()
+env.filters['reverse'] = reverse_string
+Add Custom Tests: Define custom tests for conditional logic.
+
+python
+Copy code
+def is_even(value):
+    return value % 2 == 0
+
+env = Environment()
+env.tests['even'] = is_even
+5. Context and Globals:
+context: Pass context data when rendering templates.
+
+python
+Copy code
+context = {'name': 'Alice', 'age': 30}
+template = env.get_template('template.html')
+rendered = template.render(context)
+globals: Set global variables available in all templates.
+
+python
+Copy code
+env.globals['site_name'] = 'My Website'
+6. Exceptions and Error Handling:
+Handle Exceptions: Jinja raises exceptions for errors like missing variables or syntax errors.
+python
+Copy code
+from jinja2 import TemplateSyntaxError
+
+try:
+    template = env.get_template('nonexistent.html')
+except TemplateSyntaxError as e:
+    print(f"Syntax error: {e}")
+7. Template Caching:
+cache: Manage caching to improve performance. Jinja supports template caching which can be configured in the Environment.
+8. Extensions:
+Use Extensions: Extend Jinja’s functionality with built-in or custom extensions.
+python
+Copy code
+from jinja2 import Environment, select_autoescape
+from jinja2.ext import Extension
+
+class MyExtension(Extension):
+    def __init__(self, environment):
+        super().__init__(environment)
+        environment.extend(my_extension=self)
+
+env = Environment(extensions=[MyExtension])
+These functions and features allow you to manage and customize the behavior of Jinja templates effectively in your Python applications.
