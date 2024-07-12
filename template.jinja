@@ -1,0 +1,24 @@
+
+#ifndef {{ class_name | upper }}_H
+#ifndef {{ class_name | upper }}_H
+
+class {{ class_name }}
+{
+public:
+    {{ class_name }}();
+    ~{{ class_name }}();
+
+
+    {% for method in methods %}
+    {{ method.return_type }} {{ method.name }}({{ method.args }});
+    {% endfor %}
+
+private:
+
+    {% for member in members %}
+    {{ member.type }} {{ member.name }};
+    {% endfor %}
+
+}; // {{ class_name }}
+
+#endif // {{ class_name | upper }}_H
